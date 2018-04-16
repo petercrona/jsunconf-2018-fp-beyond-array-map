@@ -1345,6 +1345,7 @@ demo.execute([[0, 4], [4, 8]]);
 
 
 /*
+const lift2 = curry((f,g,h,x) => f(g(x), h(x)));
    demo.fmap(lift2(set('name'),
    compose(toUpper, get('name')),
    identity))
