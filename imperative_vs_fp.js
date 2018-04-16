@@ -1,8 +1,8 @@
-const {map, forEach, reduce, flattenDeep, curry, identity, get} = require('lodash/fp');
+const {compose, map, forEach, reduce, flattenDeep, curry, identity, get} = require('lodash/fp');
+const Demo = require('./demo');
 const _ = require('lodash');
 
-
-
+const demo = new Demo();
 
 
 
@@ -63,9 +63,6 @@ const _ = require('lodash');
 
 
 // # ====== Example 1 - Given a bunch of users, get only their ids
-let users = [{id: 1, name: 'Kalle'}, {id: 2, name: 'Anka'}];
-console.log('\n===== Given a bunch of users, get only their ids');
-let userIds;
 
 
 
@@ -121,12 +118,17 @@ let userIds;
 
 
 // # === Old School JS
-userIds = [];
-for (let i = 0; i < users.length; i++) {
-    userIds.push(users[i].id);
-}
-console.log('oldschool', userIds);
+demo.push('oldschool', () => {
+    const users = [{id: 1, name: 'Kalle'}, {id: 2, name: 'Anka'}];
 
+    const userIds = [];
+    for (let i = 0; i < users.length; i++) {
+        userIds.push(users[i].id);
+    }
+
+    return userIds;
+
+});
 
 
 
@@ -171,8 +173,12 @@ console.log('oldschool', userIds);
 
 
 // # === 2. Modern JS
-userIds = users.map(u => u.id);
-console.log('modern', userIds);
+demo.push('modern', () => {
+    const users = [{id: 1, name: 'Kalle'}, {id: 2, name: 'Anka'}];
+
+    return users.map(u => u.id);
+
+});
 
 
 
@@ -211,18 +217,20 @@ console.log('modern', userIds);
 
 
 // # === 3. Lodash
-userIds = _.map(users, u => u.id);
-console.log('lodash', userIds);
+demo.push('lodash', () => {
+    const users = [{id: 1, name: 'Kalle'}, {id: 2, name: 'Anka'}];
+
+    return _.map(users, u => u.id);
+
+});
 
 // # === 4. Lodash/FP
-userIds = map(u => u.id, users);
-console.log('lodash/fp', userIds);
+demo.push('lodash/fp', () => {
+    const users = [{id: 1, name: 'Kalle'}, {id: 2, name: 'Anka'}];
 
-console.log('');
+    return map(u => u.id, users);
 
-// return;
-
-
+});
 
 
 
@@ -255,15 +263,9 @@ console.log('');
 
 
 
-// #
-console.log('\n====== Given a bunch of users, sum the number of comments they have written');
 
-let sum;
-users = [
-    {id: 1, name: 'Kalle', commentsWritten: 1},
-    {id: 2, name: 'Anka', commentsWritten: 6},
-    {id: 3, name: 'Leffe', commentsWritten: 10}
-];
+
+// # Given a bunch of users, sum the number of comments they have written
 
 
 
@@ -320,12 +322,21 @@ users = [
 
 
 // # Old School JS
-sum = 0;
-for (let i = 0; i < users.length; i++) {
-    sum += users[i].commentsWritten;
-}
-console.log('oldschool', sum);
+demo.push('oldschool', () => {
+    const users = [
+        {id: 1, name: 'Kalle', commentsWritten: 1},
+        {id: 2, name: 'Anka', commentsWritten: 6},
+        {id: 3, name: 'Leffe', commentsWritten: 10}
+    ];
 
+    let sum = 0;
+    for (let i = 0; i < users.length; i++) {
+        sum += users[i].commentsWritten;
+    }
+
+    return sum;
+
+});
 
 
 
@@ -384,8 +395,18 @@ console.log('oldschool', sum);
 
 
 // # Modern JS
-sum = users.map(u => u.commentsWritten).reduce((memo, b) => memo + b, 0);
-console.log('modern', sum);
+demo.push('modern', () => {
+    const users = [
+        {id: 1, name: 'Kalle', commentsWritten: 1},
+        {id: 2, name: 'Anka', commentsWritten: 6},
+        {id: 3, name: 'Leffe', commentsWritten: 10}
+    ];
+
+    return users
+        .map(u => u.commentsWritten)
+        .reduce((memo, commentsWritten) => memo + commentsWritten, 0);
+
+});
 
 
 
@@ -442,16 +463,28 @@ console.log('modern', sum);
 
 
 // # Lodash
-sum = _.reduce(users, (memo, b) => memo + b.commentsWritten, 0);
-console.log('lodash', sum);
+demo.push('lodash', () => {
+    const users = [
+        {id: 1, name: 'Kalle', commentsWritten: 1},
+        {id: 2, name: 'Anka', commentsWritten: 6},
+        {id: 3, name: 'Leffe', commentsWritten: 10}
+    ];
+
+    return _.reduce(users, (memo, b) => memo + b.commentsWritten, 0);
+
+});
 
 // # Lodash/FP
-sum = reduce((memo, b) => memo + b.commentsWritten, 0, users);
-console.log('lodash/fp', sum);
+demo.push('lodash/fp', () => {
+    const users = [
+        {id: 1, name: 'Kalle', commentsWritten: 1},
+        {id: 2, name: 'Anka', commentsWritten: 6},
+        {id: 3, name: 'Leffe', commentsWritten: 10}
+    ];
 
-console.log('');
+    return reduce((memo, b) => memo + b.commentsWritten, 0, users);
 
-// return;
+});
 
 // --> Slides
 
@@ -514,9 +547,7 @@ console.log('');
 
 
 
-// #
-console.log('\n====== Working on a tree structure');
-// ===== Tree and Maybe example
+// # Working on a tree structure
 
 let userHierarchy = {
     value: {id: 1, name: 'CEO', commentsWritten: 1}, children: [
@@ -633,15 +664,13 @@ let userHierarchy = {
 
 
 
-// # Quite common JS
-let getIds = u => [u.value.id, ...u.children.map(getIds)]
-console.log('getIds',
-            flattenDeep(getIds(userHierarchy))
-);
+// # Quite normal JS
+demo.push('normal js', () => {
 
-console.log('');
+    const getIds = u => [u.value.id, ...u.children.map(getIds)]
+    return flattenDeep(getIds(userHierarchy));
 
-// return;
+}, false);
 
 // --> Slides
 
@@ -739,16 +768,76 @@ console.log('');
 
 
 
-// # so, map? Worked well before: map(u => u.id, users). Let's try:
+// # so, map? Worked well before:
 
+// map(u => u.id, users).
+
+// Will it work?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// util
 const Tree = require('./tree');
-console.log('\ntreeMap',
-            Tree.map(u => u.id, userHierarchy)
-);
 
-console.log('');
+demo.push('treeMap', () =>
 
-// return;
+    Tree.map(u => u.id, userHierarchy)
+
+, false);
 
 
 
@@ -852,18 +941,15 @@ console.log('');
 
 
 // # Collapse to a single value! That's reduce!
-console.log('treeReduce',
-            Tree.reduce(
-                (memo, u) => {memo.push(u.id); return memo;},
-                [],
-                userHierarchy
-            )
-);
+demo.push('treeReduce', () =>
 
-console.log('');
+    Tree.reduce(
+        (memo, u) => {memo.push(u.id); return memo;},
+        [],
+        userHierarchy
+    )
 
-// return;
-
+, false);
 
 
 
@@ -919,8 +1005,32 @@ console.log('');
 // #
 // -> Lesson 1: map transforms but keeps structure.
 // -> Lesson 2: reduce don't
+// -> Lesson 3: List is one example, Demo is another!
 
+const {lowerFirst} = require('lodash/fp');
 
+demo.push('laws', () => {
+    const nameLowerFirst = (demo) =>
+        ({...demo, name: lowerFirst(demo.name)});
+    const nameToUpper = (demo) =>
+        ({...demo, name: demo.name.toUpperCase()});
+
+    const myDemo = new Demo();
+    myDemo.push('hello', () => 'World', true);
+
+    // LAWS
+
+    // 1. fmap(id) = id
+    myDemo.fmap(identity).execute();
+    identity(myDemo).execute();
+
+    // 2. fmap(f . g) = fmap(f) . fmap(g)
+    myDemo.fmap(nameToUpper).fmap(nameLowerFirst).execute();
+    myDemo.fmap(compose(nameLowerFirst, nameToUpper)).execute();
+
+    return 'obeyed';
+
+}, false);
 
 
 
@@ -1029,20 +1139,14 @@ console.log('');
 
 
 // #
-let addCommentsWritten = (a, b) => a + b.commentsWritten;
+demo.push('commentsWritten', () => {
 
-console.log('reduce tree',
-            Tree.reduce(addCommentsWritten, 0, userHierarchy)
-);
+    let addCommentsWritten = (a, b) => a + b.commentsWritten;
 
-// Compare with:
-console.log('reduce flat',
-            reduce(addCommentsWritten, 0, users)
-);
+    return Tree.reduce(addCommentsWritten, 0, userHierarchy);
+    //          reduce(addCommentsWritten, 0, users) -- solution for list!
 
-console.log('');
-
-// return;
+}, false);
 
 
 
@@ -1103,8 +1207,6 @@ console.log('');
 // #
 // A final example, translate tree to ASCII
 
-console.log('\n===== ASCII');
-
 
 
 
@@ -1161,24 +1263,19 @@ console.log('\n===== ASCII');
 // Utils
 const {join, repeat} = require('lodash/fp');
 
-//==== Solution START
-let render;
+demo.push('Organisation', () => {
+    let render;
 
-let levelIndicator = level => repeat(level * 2, '-');
-let renderChildren = (level, children) => join('', map(render(level), children));
+    let levelIndicator = level => repeat(level * 2, '-');
+    let renderChildren = (level, uNode) => join('', map(render(level), uNode.children));
 
-render = curry((level, uNode) =>
-    `\n${levelIndicator(level)}${uNode.value.name}${renderChildren(level + 1, uNode.children)}`
-);
-//==== Solution END
+    render = curry((level, uNode) =>
+        `\n${levelIndicator(level)}${uNode.value.name}${renderChildren(level + 1, uNode)}`
+    );
 
-console.log(
-    render(0, userHierarchy)
-);
+    return render(1, userHierarchy);
 
-console.log('');
-
-// return;
+}, false);
 
 
 
@@ -1220,32 +1317,37 @@ console.log('');
 
 
 // #
+
 // Util
-const {compose, multiply} = require('lodash/fp');
+const {multiply} = require('lodash/fp');
 const on2 = curry((f,g,h,x,y) => f(g(x), h(y)));
 const compose2 = curry((f, g, x, y) => f(g(x, y)));
 const flip2Args = curry((f, x, y) => f(y, x));
 const repeat_ = flip2Args(repeat);
 
-// Solution START
-levelIndicator = compose(repeat_('-'), multiply(2));
+demo.push('To Mock a Mockingbird', () => {
 
-render = curry((level, uNode) =>
-    `\n${levelIndicator(level)}${uNode.value.name}${renderChildren(level + 1, uNode)}`
-);
+    // Number -> String
+    levelIndicator = compose(repeat_('-'), multiply(2));
 
-// level -> UserNode -> String
-renderChildren = compose2(
-    join(''),
-    on2(map, render, get('children'))
-    // (level, children) => map(render(level), children)
-);
-// Solution END
+    render = curry((level, uNode) =>
+        `\n${levelIndicator(level)}${uNode.value.name}${renderChildren(level + 1, uNode)}`
+    );
 
-console.log(
-    render(0, userHierarchy)
-);
+    // Number -> UserNode -> String
+    renderChildren = compose2(
+        join(''),
+        on2(map, render, get('children'))
+        // (level, uNode) => map(render(level), uNode.children)
+    );
 
-console.log('');
+    return render(1, userHierarchy);
+
+}, false);
+
+// "Point-Free or Die: Tacit Programming in Haskell and Beyond" by Amar Shah
+
 
 // --> Slides
+
+demo.execute([[0, 4], [4, 8]]);
