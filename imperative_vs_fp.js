@@ -1,4 +1,4 @@
-const {compose, map, forEach, reduce, flattenDeep, curry, identity, get} = require('lodash/fp');
+const {toUpper, set, compose, map, forEach, reduce, flattenDeep, curry, identity, get} = require('lodash/fp');
 const Demo = require('./demo');
 const _ = require('lodash');
 
@@ -1007,33 +1007,6 @@ demo.push('treeReduce', () =>
 // -> Lesson 2: reduce don't
 // -> Lesson 3: List is one example, Demo is another!
 
-const {lowerFirst} = require('lodash/fp');
-
-demo.push('laws', () => {
-    const nameLowerFirst = (demo) =>
-        ({...demo, name: lowerFirst(demo.name)});
-    const nameToUpper = (demo) =>
-        ({...demo, name: demo.name.toUpperCase()});
-
-    const myDemo = new Demo();
-    myDemo.push('hello', () => 'World', true);
-
-    // LAWS
-
-    // 1. fmap(id) = id
-    myDemo.fmap(identity).execute();
-    identity(myDemo).execute();
-
-    // 2. fmap(f . g) = fmap(f) . fmap(g)
-    myDemo.fmap(nameToUpper).fmap(nameLowerFirst).execute();
-    myDemo.fmap(compose(nameLowerFirst, nameToUpper)).execute();
-
-    return 'obeyed';
-
-}, false);
-
-
-
 
 
 
@@ -1351,3 +1324,30 @@ demo.push('To Mock a Mockingbird', () => {
 // --> Slides
 
 demo.execute([[0, 4], [4, 8]]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+   demo.fmap(lift2(set('name'),
+   compose(toUpper, get('name')),
+   identity))
+   .execute([[0, 4], [4, 8]]);
+
+ */
