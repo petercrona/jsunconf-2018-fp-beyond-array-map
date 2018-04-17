@@ -117,6 +117,45 @@ const demo = new Demo();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // # === Old School JS
 demo.push('oldschool', () => {
     const users = [{id: 1, name: 'Kalle'}, {id: 2, name: 'Anka'}];
@@ -129,6 +168,28 @@ demo.push('oldschool', () => {
     return userIds;
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -216,6 +277,37 @@ demo.push('modern', () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // # === 3. Lodash
 demo.push('lodash', () => {
     const users = [{id: 1, name: 'Kalle'}, {id: 2, name: 'Anka'}];
@@ -265,7 +357,54 @@ demo.push('lodash/fp', () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // # Given a bunch of users, sum the number of comments they have written
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -664,6 +803,30 @@ let userHierarchy = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // # Quite normal JS
 demo.push('normal js', () => {
 
@@ -830,6 +993,19 @@ demo.push('normal js', () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 // util
 const Tree = require('./tree');
 
@@ -838,6 +1014,37 @@ demo.push('treeMap', () =>
     Tree.map(u => u.id, userHierarchy)
 
 , false);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -940,7 +1147,44 @@ demo.push('treeMap', () =>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // # Collapse to a single value! That's reduce!
+
 demo.push('treeReduce', () =>
 
     Tree.reduce(
@@ -950,6 +1194,17 @@ demo.push('treeReduce', () =>
     )
 
 , false);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1055,8 +1310,71 @@ demo.push('treeReduce', () =>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // #
 // = Write a function to get the sum of comments written
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1177,8 +1495,59 @@ demo.push('commentsWritten', () => {
 
 
 
+
+
+
+
 // #
 // A final example, translate tree to ASCII
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1289,6 +1658,53 @@ demo.push('Organisation', () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // #
 
 // Util
@@ -1324,6 +1740,79 @@ demo.push('To Mock a Mockingbird', () => {
 // --> Slides
 
 demo.execute([[0, 4], [4, 8]]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
