@@ -322,7 +322,7 @@ demo.push('lodash/fp', () => {
 
     return map(u => u.id, users);
 
-}, false);
+}, true);
 
 
 
@@ -623,7 +623,7 @@ demo.push('lodash/fp', () => {
 
     return reduce((memo, b) => memo + b.commentsWritten, 0, users);
 
-}, false);
+}, true);
 
 // --> Slides
 
@@ -831,9 +831,9 @@ let userHierarchy = {
 demo.push('normal js', () => {
 
     const getIds = u => [u.value.id, ...u.children.map(getIds)]
-    return flattenDeep(getIds(userHierarchy));
+    return getIds(userHierarchy);
 
-}, false);
+}, true);
 
 // --> Slides
 
@@ -1013,7 +1013,7 @@ demo.push('treeMap', () =>
 
     Tree.map(u => u.id, userHierarchy)
 
-, false);
+, true);
 
 
 
@@ -1193,7 +1193,7 @@ demo.push('treeReduce', () =>
         userHierarchy
     )
 
-, false);
+, true);
 
 
 
@@ -1438,7 +1438,7 @@ demo.push('commentsWritten', () => {
     return Tree.reduce(addCommentsWritten, 0, userHierarchy);
     //          reduce(addCommentsWritten, 0, users) -- solution for list!
 
-}, false);
+}, true);
 
 
 
@@ -1618,7 +1618,7 @@ demo.push('Organisation', () => {
 
     return render(1, userHierarchy);
 
-}, false);
+}, true);
 
 
 
@@ -1733,14 +1733,18 @@ demo.push('To Mock a Mockingbird', () => {
 
     return render(1, userHierarchy);
 
-}, false);
+}, true);
 
 // "Point-Free or Die: Tacit Programming in Haskell and Beyond" by Amar Shah
 
 
 // --> Slides
 
-demo.execute([[0, 4], [4, 8]]);
+const lift2 = curry((f,g,h,x) => f(g(x), h(x)));
+demo.fmap(lift2(set('name'),
+                compose(toUpper, get('name')),
+                identity))
+    .execute([[0, 4], [4, 8]]);
 
 
 
