@@ -322,7 +322,7 @@ demo.push('lodash/fp', () => {
 
     return map(u => u.id, users);
 
-});
+}, false);
 
 
 
@@ -623,7 +623,7 @@ demo.push('lodash/fp', () => {
 
     return reduce((memo, b) => memo + b.commentsWritten, 0, users);
 
-});
+}, false);
 
 // --> Slides
 
@@ -1262,6 +1262,7 @@ demo.push('treeReduce', () =>
 // -> Lesson 2: reduce don't
 // -> Lesson 3: List is one example, Demo is another!
 
+// const demo = new Demo();
 
 
 
