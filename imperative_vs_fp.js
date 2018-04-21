@@ -1259,7 +1259,7 @@ demo.push('treeReduce', () =>
 
 // #
 // -> Lesson 1: map transforms but keeps structure.
-// -> Lesson 2: reduce don't
+// -> Lesson 2: reduce doesn't
 // -> Lesson 3: List is one example, Demo is another!
 
 // const demo = new Demo();
